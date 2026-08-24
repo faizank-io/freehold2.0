@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  // agencyId String?
+  // agency Agency? @relation(fields: [agencyId], references: [id])
+  name      String
+  email     String   @unique
+  password  String
+  role      Role     @default(AGENT)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// --ENUMs
+
+enum Role {
+  SUPER_ADMIN
+  AGENCY_OWNER
+  OFFICE_MANAGER
+  PROPERTY_MANAGER
+  AGENT
+}
